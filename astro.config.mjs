@@ -5,5 +5,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://gabriel-portfolio.vercel.app',
+  site: 'https://gabrielferreira-dev.vercel.app',
 });

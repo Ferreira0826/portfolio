@@ -364,4 +364,6 @@ export const profile = {
   study:
     'Pós-graduação em Engenharia de Dados & IA, com conclusão prevista para fevereiro de 2027.',
   github: 'https://github.com/Ferreira0826',
+  email: 'gabrielferreira0826@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/gabriel-ferreira-davila-78565323a',
 };

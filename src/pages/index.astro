@@ -74,6 +74,34 @@ import { projects, profile } from '../data/projects.js';
       </div>
     </section>
 
+    <!-- CONTATO -->
+    <section id="contato" class="scroll-mt-20 pt-24 pb-8">
+      <div class="flex items-baseline justify-between border-b border-line pb-4 mb-10">
+        <h2 class="font-mono text-sm text-muted tracking-widest">// CONTATO</h2>
+      </div>
+      <div class="reveal">
+        <p class="text-lg text-ink leading-relaxed mb-8 max-w-2xl">
+          Aberto a oportunidades em Engenharia de Dados. Se quiser conversar sobre um projeto ou vaga, é só chamar.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={`mailto:${profile.email}`} class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg bg-signal/10 border border-signal/40 text-signal hover:bg-signal/20 transition-colors">
+            <Icon name="mail" class="w-[18px] h-[18px]" />
+            {profile.email}
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg border border-line2 text-ink hover:bg-panel2/60 transition-colors">
+            <Icon name="linkedin" class="w-[18px] h-[18px]" />
+            linkedin
+            <Icon name="external" class="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+          <a href={profile.github} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg border border-line2 text-ink hover:bg-panel2/60 transition-colors">
+            <Icon name="github" class="w-[18px] h-[18px]" />
+            github
+            <Icon name="external" class="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <Footer />

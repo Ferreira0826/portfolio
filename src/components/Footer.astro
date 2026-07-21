@@ -9,6 +9,12 @@ const year = new Date().getFullYear();
       © {year} {profile.name} · {profile.location}
     </div>
     <div class="flex items-center gap-5 font-mono text-[13px]">
+      <a href={`mailto:${profile.email}`} class="flex items-center gap-1.5 text-muted hover:text-ink transition-colors">
+        <Icon name="mail" class="w-4 h-4" /> email
+      </a>
+      <a href={profile.linkedin} target="_blank" rel="noopener" class="flex items-center gap-1.5 text-muted hover:text-ink transition-colors">
+        <Icon name="linkedin" class="w-4 h-4" /> linkedin
+      </a>
       <a href={profile.github} target="_blank" rel="noopener" class="flex items-center gap-1.5 text-muted hover:text-ink transition-colors">
         <Icon name="github" class="w-4 h-4" /> Ferreira0826
       </a>
