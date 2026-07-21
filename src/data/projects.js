@@ -274,6 +274,13 @@ export const projects = [
       { label: 'execução', value: 'automática' },
       { label: 'destino', value: 'eCIEGES' },
     ],
+    // RESULTADOS — ganhos reais de ter o robô rodando. AJUSTE com seus números.
+    benefits: [
+      'Elimina a coleta manual recorrente de parcelas no e-Gestor APS',
+      'Reduz o risco de erro humano na transcrição dos dados para o eCIEGES',
+      'Padroniza o fluxo de ponta a ponta — mesma execução, mesmo resultado',
+      // Ex.: 'Economiza ~X horas por semana da equipe' — preencha com seu número real
+    ],
     shots: [
       { src: '/shots/egestor-terminal.png', caption: 'Robô em execução: baixa a parcela, integra no Google Sheets e faz upload no eCIEGES' },
     ],
@@ -340,6 +347,13 @@ export const projects = [
       { label: 'coleta', value: 'automática' },
       { label: 'domínio', value: 'APS' },
       { label: 'fonte', value: 'SISAB' },
+    ],
+    // RESULTADOS — ganhos reais de ter o robô rodando. AJUSTE com seus números.
+    benefits: [
+      'Automatiza a extração de indicadores da Atenção Primária do SISAB',
+      'Detecta automaticamente a competência mais recente e evita duplicidade',
+      'Envia status por e-mail — acompanhamento sem precisar checar manualmente',
+      // Ex.: 'Roda toda semana sem intervenção' — preencha com sua realidade
     ],
     shots: [
       { src: '/shots/sisab-terminal.png', caption: 'Execução do robô SISAB — detecção de CSV, verificação de competência e status por e-mail' },
