@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import Gallery from '../../components/Gallery.astro';
+import { projects } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+const toneBorder = {
+  bronze: 'border-l-bronze',
+  silver: 'border-l-silver',
+  gold: 'border-l-gold',
+};
+const toneText = {
+  bronze: 'text-bronze',
+  silver: 'text-silver',
+  gold: 'text-gold',
+};
+---
+<Base title={`${project.name} — Gabriel Ferreira`} description={project.tagline}>
+  <Header />
+
+  <main class="mx-auto max-w-content px-6 pt-16 pb-8">
+
+    <a href="/#projetos" class="inline-flex items-center gap-1.5 font-mono text-[13px] text-muted hover:text-ink transition-colors mb-12">
+      <Icon name="arrow" class="w-3.5 h-3.5 rotate-180" /> voltar
+    </a>
+
+    <!-- CABEÇALHO DO CASE -->
+    <div class="flex items-center gap-3 mb-4 reveal in">
+      <span class="font-mono text-xs text-faint tracking-wider">{project.index} / {project.segment}</span>
+      <span class="flex items-center gap-1.5 font-mono text-xs text-signal">
+        <span class="signal-dot inline-block w-1.5 h-1.5 rounded-full bg-signal"></span>
+        {project.status}
+      </span>
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight mb-5 reveal in">{project.name}</h1>
+    <p class="max-w-2xl text-lg text-muted leading-relaxed mb-16 reveal in">{project.tagline}</p>
+
+    <!-- O PROBLEMA -->
+    <section class="mb-16 reveal">
+      <div class="border-l-2 border-accent pl-5">
+        <div class="font-mono text-[11px] text-accent tracking-widest mb-3">O PROBLEMA</div>
+        <p class="text-ink leading-relaxed max-w-2xl">{project.problem}</p>
+      </div>
+    </section>
+
+    <!-- ARQUITETURA / PIPELINE -->
+    <section class="mb-16 reveal">
+      <div class="font-mono text-[11px] text-faint tracking-widest mb-6">ARQUITETURA</div>
+      <div class="space-y-3">
+        {project.layers.map((l, i) => (
+          <>
+            <div class={`rounded-xl border border-line bg-panel/60 border-l-[3px] ${toneBorder[l.tone]} p-5`}>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class={`font-mono text-sm font-medium ${toneText[l.tone]}`}>{l.tier} · {l.label}</span>
+                <span class="font-mono text-[11px] text-faint">{l.tools}</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed">{l.desc}</p>
+            </div>
+            {i < project.layers.length - 1 && (
+              <div class="flex justify-center text-faint">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+              </div>
+            )}
+          </>
+        ))}
+      </div>
+    </section>
+
+    <!-- EM FUNCIONAMENTO (galeria) -->
+    <Gallery shots={project.shots} />
+
+    <!-- DECISÕES TÉCNICAS -->
+    <section class="mb-16 reveal">
+      <div class="font-mono text-[11px] text-faint tracking-widest mb-6">DECISÕES TÉCNICAS</div>
+      <div class="rounded-xl border border-line overflow-hidden">
+        {project.decisions.map((d, i) => (
+          <div class={`flex gap-4 p-5 ${i < project.decisions.length - 1 ? 'border-b border-line' : ''}`}>
+            <div class="text-signal shrink-0 mt-0.5">
+              <Icon name={d.icon} class="w-[18px] h-[18px]" />
+            </div>
+            <div>
+              <div class="text-[15px] font-medium mb-1">{d.title}</div>
+              <div class="text-sm text-muted leading-relaxed">{d.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- MÉTRICAS -->
+    <section class="mb-16 reveal">
+      <div class="font-mono text-[11px] text-faint tracking-widest mb-6">MÉTRICAS</div>
+      <div class="grid grid-cols-3 gap-3">
+        {project.metrics.map((m) => (
+          <div class="rounded-xl bg-panel/60 border border-line p-5">
+            <div class="text-xs text-faint mb-1.5">{m.label}</div>
+            <div class="font-mono text-2xl font-medium">{m.value}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section class="mb-16 reveal">
+      <div class="font-mono text-[11px] text-faint tracking-widest mb-6">STACK</div>
+      <div class="flex flex-wrap gap-2">
+        {project.stack.map((s) => (
+          <span class="font-mono text-[13px] px-3.5 py-2 rounded-md border border-line bg-panel/60 text-muted">{s}</span>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA REPO -->
+    <section class="reveal flex flex-wrap gap-3">
+      {project.liveUrl && (
+        <a href={project.liveUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg bg-signal/10 border border-signal/40 text-signal hover:bg-signal/20 transition-colors">
+          <span class="signal-dot inline-block w-1.5 h-1.5 rounded-full bg-signal"></span>
+          ver ao vivo
+          <Icon name="external" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+      )}
+      <a href={project.repo} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg border border-line2 text-ink hover:bg-panel2/60 transition-colors">
+        <Icon name="github" class="w-[18px] h-[18px]" />
+        ver código no github
+        <Icon name="external" class="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </a>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>

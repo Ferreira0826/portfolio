@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+const { project } = Astro.props;
+const toneMap = {
+  bronze: 'text-bronze',
+  silver: 'text-silver',
+  gold: 'text-gold',
+};
+---
+<a
+  href={`/projetos/${project.slug}`}
+  class="group reveal block rounded-xl border border-line bg-panel/60 p-6 transition-all duration-300 hover:border-line2 hover:bg-panel2/60"
+>
+  <div class="flex items-center justify-between mb-3">
+    <span class="font-mono text-xs text-faint tracking-wider">{project.index} / {project.segment}</span>
+    <span class="flex items-center gap-1.5 font-mono text-xs text-signal">
+      <span class="signal-dot inline-block w-1.5 h-1.5 rounded-full bg-signal"></span>
+      {project.status}
+    </span>
+  </div>
+
+  <h3 class="font-display text-2xl font-semibold tracking-tight mb-2 group-hover:text-signal transition-colors">
+    {project.name}
+  </h3>
+  <p class="text-sm text-muted leading-relaxed mb-5">{project.tagline}</p>
+
+  <!-- mini pipeline -->
+  <div class="flex items-stretch rounded-lg border border-line overflow-hidden mb-5">
+    {project.layers.map((l, i) => (
+      <div class={`flex-1 px-3 py-2.5 ${i < project.layers.length - 1 ? 'border-r border-line' : ''}`}>
+        <div class={`font-mono text-[10px] tracking-widest mb-0.5 ${toneMap[l.tone]}`}>{l.tier}</div>
+        <div class="text-[11px] text-faint truncate">{l.label}</div>
+      </div>
+    ))}
+  </div>
+
+  <div class="flex flex-wrap gap-2 mb-5">
+    {project.stack.slice(0, 4).map((s) => (
+      <span class="font-mono text-[11px] px-2.5 py-1 rounded-md border border-line text-muted">{s}</span>
+    ))}
+    {project.stack.length > 4 && (
+      <span class="font-mono text-[11px] px-2.5 py-1 text-faint">+{project.stack.length - 4}</span>
+    )}
+  </div>
+
+  <div class="flex items-center gap-1.5 font-mono text-[13px] text-signal">
+    ver case
+    <Icon name="arrow" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+  </div>
+</a>

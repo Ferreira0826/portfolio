@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Icon from '../components/Icon.astro';
+import { projects, profile } from '../data/projects.js';
+---
+<Base>
+  <Header />
+
+  <main class="mx-auto max-w-content px-6">
+
+    <!-- HERO -->
+    <section class="pt-24 pb-20 sm:pt-32 sm:pb-24">
+      <div class="font-mono text-sm text-signal mb-6 reveal in">
+        <span class="text-faint">$</span> whoami
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-bold tracking-tight leading-[1.05] mb-6 reveal in">
+        {profile.name}
+        <span class="block text-muted font-medium text-2xl sm:text-3xl mt-4">
+          {profile.role}, <span class="text-signal">{profile.focus}</span>
+        </span>
+      </h1>
+      <p class="max-w-2xl text-lg text-muted leading-relaxed mb-10 reveal in">
+        {profile.intro}
+      </p>
+      <div class="flex flex-wrap items-center gap-4 reveal in">
+        <a href="#projetos" class="group flex items-center gap-2 font-mono text-sm px-5 py-2.5 rounded-lg bg-signal/10 border border-signal/30 text-signal hover:bg-signal/20 transition-colors">
+          ver projetos
+          <Icon name="arrow" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </a>
+        <a href={profile.github} target="_blank" rel="noopener" class="flex items-center gap-2 font-mono text-sm px-5 py-2.5 rounded-lg border border-line text-muted hover:text-ink hover:border-line2 transition-colors">
+          <Icon name="github" class="w-4 h-4" /> github
+        </a>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos" class="scroll-mt-20">
+      <div class="flex items-baseline justify-between border-b border-line pb-4 mb-10">
+        <h2 class="font-mono text-sm text-muted tracking-widest">// PROJETOS</h2>
+        <span class="font-mono text-xs text-faint">{projects.length} cases</span>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {projects.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="scroll-mt-20 pt-24">
+      <div class="flex items-baseline justify-between border-b border-line pb-4 mb-10">
+        <h2 class="font-mono text-sm text-muted tracking-widest">// SOBRE</h2>
+      </div>
+      <div class="grid gap-10 sm:grid-cols-[1.4fr_1fr]">
+        <div class="reveal">
+          <p class="text-lg text-ink leading-relaxed mb-6">{profile.about}</p>
+          <p class="text-muted leading-relaxed">{profile.aboutExtra}</p>
+        </div>
+        <div class="reveal space-y-6">
+          <div>
+            <div class="font-mono text-xs text-faint tracking-widest mb-3">STACK DIÁRIA</div>
+            <div class="flex flex-wrap gap-2">
+              {profile.daily.map((s) => (
+                <span class="font-mono text-[13px] px-3 py-1.5 rounded-md border border-line bg-panel/60 text-muted">{s}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div class="font-mono text-xs text-faint tracking-widest mb-3">LOCALIZAÇÃO</div>
+            <div class="font-mono text-sm text-muted">{profile.location}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Base>

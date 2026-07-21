@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+import { profile } from '../data/projects.js';
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-line mt-24">
+  <div class="mx-auto max-w-content px-6 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div class="font-mono text-xs text-faint">
+      © {year} {profile.name} · {profile.location}
+    </div>
+    <div class="flex items-center gap-5 font-mono text-[13px]">
+      <a href={profile.github} target="_blank" rel="noopener" class="flex items-center gap-1.5 text-muted hover:text-ink transition-colors">
+        <Icon name="github" class="w-4 h-4" /> Ferreira0826
+      </a>
+    </div>
+  </div>
+</footer>
