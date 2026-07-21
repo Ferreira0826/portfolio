@@ -218,7 +218,7 @@ export const projects = [
     index: '04',
     name: 'automacao_egestor_aps',
     segment: 'automação / rpa',
-    status: 'concluído',
+    status: 'em produção',
     tagline:
       'Pipeline RPA em Python para automatizar a coleta de dados do e-Gestor APS, com integração ao Google Sheets e upload no sistema interno eCIEGES.',
     problem:
@@ -285,7 +285,7 @@ export const projects = [
     index: '05',
     name: 'automacao_sisab_aps',
     segment: 'automação / rpa',
-    status: 'concluído',
+    status: 'em produção',
     tagline:
       'Automação em Python para coleta de dados do SISAB, reduzindo o esforço manual de extração de indicadores da Atenção Primária.',
     problem:
