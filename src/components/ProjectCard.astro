@@ -9,7 +9,7 @@ const toneMap = {
 ---
 <a
   href={`/projetos/${project.slug}`}
-  class="group reveal block rounded-xl border border-line bg-panel/60 p-6 transition-all duration-300 hover:border-line2 hover:bg-panel2/60"
+  class="card-lift group reveal block rounded-xl border border-line bg-panel/60 p-6 transition-all duration-300 hover:border-signal/40 hover:bg-panel2/60"
 >
   <div class="flex items-center justify-between mb-3">
     <span class="font-mono text-xs text-faint tracking-wider">{project.index} / {project.segment}</span>
@@ -25,9 +25,9 @@ const toneMap = {
   <p class="text-sm text-muted leading-relaxed mb-5">{project.tagline}</p>
 
   <!-- mini pipeline -->
-  <div class="flex items-stretch rounded-lg border border-line overflow-hidden mb-5">
+  <div class="pipeline flex items-stretch rounded-lg border border-line overflow-hidden mb-5">
     {project.layers.map((l, i) => (
-      <div class={`flex-1 px-3 py-2.5 ${i < project.layers.length - 1 ? 'border-r border-line' : ''}`}>
+      <div class={`pipeline-cell flex-1 px-3 py-2.5 transition-colors duration-300 ${i < project.layers.length - 1 ? 'border-r border-line' : ''}`}>
         <div class={`font-mono text-[10px] tracking-widest mb-0.5 ${toneMap[l.tone]}`}>{l.tier}</div>
         <div class="text-[11px] text-faint truncate">{l.label}</div>
       </div>
@@ -36,7 +36,7 @@ const toneMap = {
 
   <div class="flex flex-wrap gap-2 mb-5">
     {project.stack.slice(0, 4).map((s) => (
-      <span class="font-mono text-[11px] px-2.5 py-1 rounded-md border border-line text-muted">{s}</span>
+      <span class="font-mono text-[11px] px-2.5 py-1 rounded-md border border-line text-muted transition-colors duration-300 group-hover:border-line2">{s}</span>
     ))}
     {project.stack.length > 4 && (
       <span class="font-mono text-[11px] px-2.5 py-1 text-faint">+{project.stack.length - 4}</span>
@@ -45,6 +45,6 @@ const toneMap = {
 
   <div class="flex items-center gap-1.5 font-mono text-[13px] text-signal">
     ver case
-    <Icon name="arrow" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+    <Icon name="arrow" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5" />
   </div>
 </a>

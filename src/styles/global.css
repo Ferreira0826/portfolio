@@ -51,6 +51,47 @@ body {
 @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 .signal-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
+/* ── Microinterações ─────────────────────────────────────── */
+
+/* Card: leve elevação + brilho ao passar o mouse */
+.card-lift { transform: translateY(0); will-change: transform; }
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -12px rgba(76, 217, 164, 0.15),
+              0 0 0 1px rgba(76, 217, 164, 0.10);
+}
+
+/* Pipeline: células acendem sutilmente com o mouse */
+.group:hover .pipeline-cell { background: rgba(76, 217, 164, 0.04); }
+.pipeline-cell:hover { background: rgba(76, 217, 164, 0.10) !important; }
+
+/* Cursor piscando no prompt do hero */
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.cursor-blink::after {
+  content: '▊';
+  margin-left: 3px;
+  color: var(--color-signal);
+  animation: blink 1.1s step-end infinite;
+}
+
+/* Resposta tátil sutil no clique */
+a, button { transition: transform 0.1s ease; }
+a:active, button:active { transform: scale(0.98); }
+
+/* Underline animado nos links do menu */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 1px;
+  background: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
 ::selection { background: rgba(76, 217, 164, 0.25); color: #E8ECF2; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
