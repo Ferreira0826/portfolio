@@ -80,7 +80,7 @@ export const projects = [
   {
     slug: 'assistente-rag',
     index: '02',
-    name: 'assistente_rag',
+    name: 'assistente-rag',
     segment: 'ai / llm',
     status: 'concluído',
     tagline:
@@ -142,7 +142,7 @@ export const projects = [
       { src: '/shots/rag-streamlit.png', caption: 'Interface Streamlit — pergunta sobre o SISAB respondida a partir dos documentos indexados' },
     ],
     // TODO: subir o repo e conferir o link abaixo
-    repo: 'https://github.com/Ferreira0826/assistente_rag',
+    repo: 'https://github.com/Ferreira0826/assistente-rag',
   },
 
   {
