@@ -139,20 +139,24 @@ const toneText = {
     </section>
 
     <!-- CTA REPO -->
-    <section class="reveal flex flex-wrap gap-3">
-      {project.liveUrl && (
-        <a href={project.liveUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg bg-signal/10 border border-signal/40 text-signal hover:bg-signal/20 transition-colors">
-          <span class="signal-dot inline-block w-1.5 h-1.5 rounded-full bg-signal"></span>
-          ver ao vivo
-          <Icon name="external" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
-      )}
-      <a href={project.repo} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg border border-line2 text-ink hover:bg-panel2/60 transition-colors">
-        <Icon name="github" class="w-[18px] h-[18px]" />
-        ver código no github
-        <Icon name="external" class="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </a>
-    </section>
+    {(project.liveUrl || project.repo) && (
+      <section class="reveal flex flex-wrap gap-3">
+        {project.liveUrl && (
+          <a href={project.liveUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg bg-signal/10 border border-signal/40 text-signal hover:bg-signal/20 transition-colors">
+            <span class="signal-dot inline-block w-1.5 h-1.5 rounded-full bg-signal"></span>
+            ver ao vivo
+            <Icon name="external" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        )}
+        {project.repo && (
+          <a href={project.repo} target="_blank" rel="noopener" class="group inline-flex items-center gap-2.5 font-mono text-sm px-5 py-3 rounded-lg border border-line2 text-ink hover:bg-panel2/60 transition-colors">
+            <Icon name="github" class="w-[18px] h-[18px]" />
+            ver código no github
+            <Icon name="external" class="w-4 h-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        )}
+      </section>
+    )}
 
   </main>
 

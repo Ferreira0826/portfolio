@@ -359,6 +359,150 @@ export const projects = [
     ],
     repo: 'https://github.com/Ferreira0826/automacao-sisab-aps',
   },
+
+  {
+    slug: 'automacao-envio-fichas',
+    index: '06',
+    name: 'automacao_envio_fichas',
+    segment: 'automação / rpa',
+    status: 'em produção',
+    tagline:
+      'Automação em Python que alimenta o painel de acompanhamento de envio de fichas da Atenção Primária, consolidando lotes transmitidos e competências de glosas.',
+    problem:
+      'O acompanhamento do envio de fichas da Atenção Primária dependia de consulta manual diária ao sistema e de digitação dos lotes em planilhas que alimentam um painel de Power BI. Como o sistema gera de um a três lotes por dia, o trabalho era recorrente, repetitivo e sujeito a erro de transcrição. O objetivo: automatizar a coleta e a escrita nas planilhas, mantendo o painel atualizado sem intervenção.',
+    layers: [
+      {
+        tier: 'COLETA',
+        label: 'transmissão',
+        tone: 'bronze',
+        tools: 'Python · Playwright',
+        desc: 'Acesso automatizado à tela de transmissão de dados e varredura paginada dos lotes, que segue até reencontrar o último já registrado.',
+      },
+      {
+        tier: 'CONSOLIDAÇÃO',
+        label: 'regras',
+        tone: 'silver',
+        tools: 'openpyxl',
+        desc: 'Deduplicação pelo número do lote, separação entre enviados e pendentes, e carga apenas da competência seguinte à última registrada.',
+      },
+      {
+        tier: 'SAÍDA',
+        label: 'painel',
+        tone: 'gold',
+        tools: 'Excel · Power BI',
+        desc: 'Backup antes de qualquer escrita e atualização das planilhas que alimentam o painel do setor, preservando formatação e estrutura das abas.',
+      },
+    ],
+    decisions: [
+      {
+        icon: 'layers',
+        title: 'Chave pelo número do lote',
+        desc: 'As datas se repetem, os números de lote não. Usar o lote como chave torna a execução idempotente — rodar duas vezes não duplica registro.',
+      },
+      {
+        icon: 'branch',
+        title: 'Varredura com âncora e teto',
+        desc: 'A busca pagina até reencontrar o último lote já registrado, com limite máximo de páginas. Evita varrer o histórico inteiro a cada execução.',
+      },
+      {
+        icon: 'plug',
+        title: 'Backup antes de escrever',
+        desc: 'Cada execução gera uma cópia datada da planilha antes de alterá-la. Escrita automatizada em arquivo compartilhado exige rota de volta.',
+      },
+      {
+        icon: 'lock',
+        title: 'Credenciais e observabilidade',
+        desc: 'Acessos em arquivo de configuração fora do versionamento, log estruturado por módulo e nível, e alerta por e-mail em caso de falha.',
+      },
+    ],
+    stack: ['Python', 'Playwright', 'openpyxl', 'Excel', 'Power BI'],
+    metrics: [
+      { label: 'execução', value: 'agendada' },
+      { label: 'carga', value: 'incremental' },
+      { label: 'esforço manual', value: '~-60%' },
+    ],
+    benefits: [
+      'Elimina a consulta e a digitação diária dos lotes transmitidos',
+      'Execução idempotente — reprocessar não duplica registro na planilha',
+      'Backup automático antes de cada escrita no arquivo compartilhado',
+      'Alerta por e-mail quando a execução falha, em vez de falhar em silêncio',
+    ],
+    shots: [
+      { src: '/shots/envio-fichas-robo.png', caption: 'Execução do robô — varredura até o último lote registrado, backup e carga apenas dos lotes novos' },
+    ],
+  },
+
+  {
+    slug: 'automacao-producao-aps',
+    index: '07',
+    name: 'automacao_producao_aps',
+    segment: 'automação / rpa',
+    status: 'em produção',
+    tagline:
+      'Robô com interface própria que extrai relatórios mensais de atendimentos e procedimentos da Atenção Primária, agrega por período e monta o ranking de CIDs mais registrados.',
+    problem:
+      'O relatório analítico de atendimento individual só é emitido mês a mês. Montar a visão quadrimestral exigia baixar cada mês separadamente, somar manualmente e apurar os seis CIDs mais frequentes, agrupando o restante em "Outros" — um processo longo, repetido a cada ciclo e difícil de auditar. O objetivo: um robô acionado para qualquer intervalo de meses, que baixe, agregue e entregue a tabela pronta.',
+    layers: [
+      {
+        tier: 'ENTRADA',
+        label: 'período',
+        tone: 'bronze',
+        tools: 'interface desktop',
+        desc: 'Seleção do recorte por quadrimestre, semestre ou período livre, com escolha dos relatórios a processar.',
+      },
+      {
+        tier: 'EXTRAÇÃO',
+        label: 'mês a mês',
+        tone: 'silver',
+        tools: 'Python · Playwright',
+        desc: 'Download automatizado dos relatórios analíticos de atendimento individual e de procedimentos individualizados, um mês por vez, com reaproveitamento do que já foi baixado no dia.',
+      },
+      {
+        tier: 'AGREGAÇÃO',
+        label: 'ranking',
+        tone: 'gold',
+        tools: 'pandas · openpyxl',
+        desc: 'Soma dos meses do intervalo, apuração dos seis CIDs mais registrados com o restante em "Outros", e geração da planilha em duas abas.',
+      },
+    ],
+    decisions: [
+      {
+        icon: 'branch',
+        title: 'Período parametrizável',
+        desc: 'O robô recebe o intervalo como parâmetro em vez de assumir quadrimestre, o que permite reaproveitá-lo para semestre ou qualquer recorte.',
+      },
+      {
+        icon: 'layers',
+        title: 'Fonte única: o relatório analítico',
+        desc: 'Optar pelo relatório analítico do sistema de origem, e não por painéis derivados, mantém a rastreabilidade do número até o registro que o gerou.',
+      },
+      {
+        icon: 'plug',
+        title: 'Reaproveitamento entre execuções',
+        desc: 'Os meses já baixados no dia são reaproveitados por padrão, com opção de forçar o download completo quando necessário.',
+      },
+      {
+        icon: 'lock',
+        title: 'Saída desacoplada do ano',
+        desc: 'O diretório de destino é configurável, para que a virada de exercício não exija alterar código.',
+      },
+    ],
+    stack: ['Python', 'Playwright', 'pandas', 'openpyxl', 'Tkinter', 'Excel'],
+    metrics: [
+      { label: 'período', value: 'parametrizável' },
+      { label: 'abas', value: '2' },
+      { label: 'acionamento', value: 'sob demanda' },
+    ],
+    benefits: [
+      'Dispensa baixar e somar os relatórios mês a mês',
+      'Funciona para qualquer intervalo, não só o quadrimestre',
+      'Apura o ranking de CIDs automaticamente, sem conferência manual',
+      'Reaproveita downloads já feitos no dia, encurtando reexecuções',
+    ],
+    shots: [
+      { src: '/shots/producao-aps-robo.png', caption: 'Interface do robô — seleção do período, download mês a mês e geração da planilha consolidada' },
+    ],
+  },
 ];
 
 export const profile = {
